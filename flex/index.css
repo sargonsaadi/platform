@@ -1,0 +1,16 @@
+.container{
+    position: flex;
+    flex-direction: row;
+    width: 400px;
+    background: yellow;
+    flex-wrap: wrap-reverse;
+}
+
+.item{
+    display: inline-block;
+    background: red;
+    height: 50px;
+    width: 50px;
+    flex: 1;
+    margin: 5px;
+}

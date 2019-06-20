@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Nav from './components/Nav';
+import Main from './components/Main';
+import { connect } from 'react-redux';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { reOrderList } from './redux/actions/actions';
+import SideDrawer from './components/SideMenu/SideDrawer/SideDrawer';
+import Backdrop from './components/SideMenu/Backdrop/Backdrop';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  state = {}
+
+  constructor() {
+    super();
+    this.state = {
+    }
+  }
+  componentDidMount() {
+
+  }
+  handleDragEnd = result => {
+    console.log("endDrag", result);
+    const { source, destination, draggableId } = result;
+
+    if (destination && source.index !== destination.index) {
+      this.props.reOrderList(source, destination, draggableId);
+    }
+  }
+  render() {
+    return (
+      <div>
+        <Nav />
+        {this.props.isMenuOpen ? (<Backdrop />) : null}
+        <SideDrawer />
+        <DragDropContext onDragEnd={this.handleDragEnd}>
+          <Main />
+        </DragDropContext>
+      </div>
+    );
+  }
 }
-
-export default App;
+const mapStateToProps = state => {
+  return {
+    isMenuOpen: state.isMenuOpen
+  }
+}
+export default connect(mapStateToProps, { reOrderList })(App);
