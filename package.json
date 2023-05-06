@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "luxon": "^1.16.0",
+    "luxon": "^1.28.1",
     "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-beautiful-dnd": "^11.0.3",
